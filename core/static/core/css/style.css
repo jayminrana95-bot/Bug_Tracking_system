@@ -1,0 +1,403 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --navy-darkest: #080d1a;
+    --navy-dark: #0d1528;
+    --navy-mid: #111c35;
+    --navy-card: #141e38;
+    --navy-border: #1e2e52;
+    --blue-accent: #2563eb;
+    --blue-bright: #3b82f6;
+    --blue-glow: rgba(37, 99, 235, 0.18);
+    --text-primary: #f0f4ff;
+    --text-secondary: #8899bb;
+    --text-muted: #4a5a7a;
+    --input-bg: #0d1528;
+    --input-border: #1e2e52;
+    --input-focus: #2563eb;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--navy-darkest);
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        repeating-linear-gradient(60deg, transparent, transparent 40px, rgba(37, 99, 235, 0.03) 40px, rgba(37, 99, 235, 0.03) 41px),
+        repeating-linear-gradient(-60deg, transparent, transparent 40px, rgba(37, 99, 235, 0.03) 40px, rgba(37, 99, 235, 0.03) 41px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+
+/* =====================
+   LEFT: Form Panel
+===================== */
+
+.form-panel {
+    position: relative;
+    z-index: 1;
+    width: 480px;
+    min-width: 420px;
+    background: var(--navy-card);
+    border-right: 1px solid var(--navy-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 56px 52px;
+    animation: slideIn 0.55s cubic-bezier(.22, .68, 0, 1.2) both;
+}
+
+.form-panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue-accent), #60a5fa);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Brand */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 44px;
+}
+
+.brand-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--blue-accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+}
+
+.brand-text h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.brand-text span {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+}
+
+/* Form Heading */
+.form-heading {
+    margin-bottom: 32px;
+}
+
+.form-heading h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.form-heading p {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* Fields */
+.field {
+    margin-bottom: 18px;
+}
+
+.field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 7px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.field input,
+.field select {
+    width: 100%;
+    padding: 11px 14px;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238899bb' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+}
+
+.field select option {
+    background: var(--navy-mid);
+    color: var(--text-primary);
+}
+
+.field input::placeholder {
+    color: var(--text-muted);
+}
+
+.field input:focus,
+.field select:focus {
+    outline: none;
+    border-color: var(--blue-accent);
+    box-shadow: 0 0 0 3px var(--blue-glow);
+}
+
+.help-text {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 5px;
+    line-height: 1.5;
+}
+
+/* Password Hints */
+.pw-hints {
+    margin-top: 8px;
+    padding: 10px 12px;
+    background: rgba(37, 99, 235, 0.07);
+    border-left: 2px solid var(--blue-accent);
+    border-radius: 0 6px 6px 0;
+}
+
+.pw-hints li {
+    list-style: none;
+    font-size: 11px;
+    color: var(--text-muted);
+    padding: 2px 0 2px 14px;
+    position: relative;
+}
+
+.pw-hints li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--blue-accent);
+}
+
+/* Submit Button */
+.btn-signup {
+    width: 100%;
+    padding: 13px;
+    margin-top: 8px;
+    background: var(--blue-accent);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.35);
+}
+
+.btn-signup:hover {
+    background: #1d4ed8;
+    box-shadow: 0 6px 28px rgba(37, 99, 235, 0.5);
+}
+
+.btn-signup:active {
+    transform: scale(0.98);
+}
+
+/* Login Link */
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.login-link a {
+    color: var(--blue-bright);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================
+   RIGHT: Motivation Panel
+===================== */
+
+.motivation-panel {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    background: var(--navy-mid);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 64px;
+    overflow: hidden;
+    animation: fadeIn 0.7s ease both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.motivation-panel::before {
+    content: '';
+    position: absolute;
+    width: 440px;
+    height: 440px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.14) 0%, transparent 70%);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    pointer-events: none;
+}
+
+.motivation-panel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 34px, var(--navy-border) 34px, var(--navy-border) 35px),
+        repeating-linear-gradient(90deg, transparent, transparent 34px, var(--navy-border) 34px, var(--navy-border) 35px);
+    opacity: 0.12;
+    pointer-events: none;
+}
+
+/* Illustration */
+.motivation-img {
+    position: relative;
+    z-index: 1;
+    width: 280px;
+    max-width: 80%;
+    margin-bottom: 36px;
+    filter: drop-shadow(0 12px 40px rgba(37, 99, 235, 0.25));
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-10px); }
+}
+
+/* Motivation Text */
+.motivation-copy {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 380px;
+}
+
+.motivation-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-bright);
+    background: rgba(37, 99, 235, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+}
+
+.motivation-copy h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.25;
+    margin-bottom: 14px;
+}
+
+.motivation-copy h2 span {
+    color: var(--blue-bright);
+}
+
+.motivation-copy p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+}
+
+/* Stats Row */
+.stats-row {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 28px;
+    margin-top: 44px;
+}
+
+.stat-box {
+    text-align: center;
+    padding: 14px 22px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--navy-border);
+    border-radius: 10px;
+}
+
+.stat-box .num {
+    font-family: 'Sora', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.stat-box .lbl {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}

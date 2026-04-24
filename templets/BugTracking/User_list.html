@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management — Bug Tracking System</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<!-- ANIMATED STARFIELD BACKGROUND -->
+<canvas id="starCanvas"></canvas>
+
+<div class="page-wrap">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div>
+            <div class="brand">
+                <div class="brand-dot"></div>
+                <span class="brand-name">Bug Tracking System</span>
+            </div>
+            <h1 class="page-title">User <span>Management</span></h1>
+        </div>
+        <div class="badge-live">
+            <div class="badge-live-dot"></div>
+            All Systems Live
+        </div>
+    </div>
+
+    <!-- STATS ROW -->
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-label">Total Users</div>
+            <div class="stat-value green">{{ User_list|length }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Role</div>
+            <div class="stat-value normal">Project Manager</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">System</div>
+            <div class="stat-value normal">© 2026</div>
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-card">
+        <div class="table-top">
+            <span class="table-top-title">Registered Users</span>
+            <span class="entry-badge">{{ User_list|length }} entries</span>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emp in User_list %}
+                <tr>
+                    <td><span class="id-chip">{{ emp.user_id }}</span></td>
+                    <td>
+                        <div class="name-wrap">
+                            <div class="avatar">{{ emp.Name|first }}</div>
+                            <span class="name-text">{{ emp.Name }}</span>
+                        </div>
+                    </td>
+                    <td><span class="role-pill">{{ emp.role }}</span></td>
+                    <td><span class="email-text">{{ emp.email }}</span></td>
+                    <td><span class="pass-text">{{ emp.password }}</span></td>
+                    <td><span class="date-text">{{ emp.created_at }}</span></td>
+                    <td>
+                        <div class="actions">
+                            <a href="{% url 'Update_user' emp.user_id %}" class="btn-edit">✏ Edit</a>
+                            <form class="btn-delete-form" method="POST" action="{% url 'delete_user' emp.user_id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-delete">🗑 Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- FOOTER NAV -->
+    <a href="{% url 'Project_Manager' %}" class="nav-link">🏠 Project_Manager</a>
+    <a href="{% url 'Developer_dashbord' %}" class="nav-link">🏠 Developer_dashbord</a>
+    <a href="{% url 'Tester_dashbord' %}" class="nav-link">🏠 Tester_dashbord</a>
+
+</div>
+
+<!-- STARFIELD JAVASCRIPT — background animated dots -->
+<script>
+    const canvas = document.getElementById('starCanvas');
+    const ctx    = canvas.getContext('2d');
+    let stars    = [];
+
+    function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    function initStars() {
+        stars = [];
+        for (let i = 0; i < 130; i++) {
+            stars.push({
+                x:       Math.random() * canvas.width,
+                y:       Math.random() * canvas.height,
+                r:       Math.random() * 1.8 + 0.3,
+                alpha:   Math.random(),
+                speed:   Math.random() * 0.008 + 0.003,
+                growing: Math.random() > 0.5
+            });
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+            s.growing ? (s.alpha += s.speed) : (s.alpha -= s.speed);
+            if (s.alpha >= 0.9)  s.growing = false;
+            if (s.alpha <= 0.05) s.growing = true;
+
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle   = `rgba(0, 217, 160, ${s.alpha})`;
+            ctx.shadowBlur  = 8;
+            ctx.shadowColor = '#00d9a0';
+            ctx.fill();
+        });
+        requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', () => { resize(); initStars(); });
+    resize();
+    initStars();
+    draw();
+</script>
+
+</body>
+</html>
+{% endblock %}

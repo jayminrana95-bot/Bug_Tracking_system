@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <table>
+    <thead>
+        <tr>
+            <th>Task ID</th>
+            <th>Assigned To</th>
+            <th>Assigned By</th>
+            <th>Description</th>
+            <th>Assigned Date</th>
+            
+          
+        </tr>
+    </thead>
+    <tbody>
+        {% for emp in assigned_task_list %}
+        <tr>
+            <td>{{emp.task_id}}</td>
+            <td>{{emp.assigned_to}}</td>
+            <td>{{emp.assigned_by}}</td>
+            <td>{{emp.Description}}</td>
+            <td>{{emp.assigned_date}}</td>
+            
+                
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<a href="{% url 'Developer_dashbord' %}">Developer_dashbord</a>
+<br>
+</body>
+</html>

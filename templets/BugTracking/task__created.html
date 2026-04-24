@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+</head>
+<body>
+   
+
+
+<form method="POST" class="form-container">
+    {% csrf_token %}
+    <h1>Create Task</h1>
+    <div class="form-group">
+        <label>Task ID</label>
+        {{ form.task_id }}
+        {{ form.task_id.errors }}
+    </div>
+
+    <div class="form-group">
+        <label>Module</label>
+        {{ form.module_id }}
+        {{ form.module_id.errors }}
+    </div>
+
+    <div class="form-group">
+        <label>Task Description</label>
+        {{ form.task_description }}
+        {{ form.task_description.errors }}
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Start Date</label>
+            {{ form.start_date }}
+            {{ form.start_date.errors }}
+        </div>
+
+        <div class="form-group">
+            <label>End Date</label>
+            {{ form.end_date }}
+            {{ form.end_date.errors }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Status</label>
+        {{ form.status }}
+        {{ form.status.errors }}
+    </div>
+
+    <button type="submit" class="btn-submit">Create Task</button>
+</form>
+</body>
+</html>
+{% endblock %}

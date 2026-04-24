@@ -1,0 +1,307 @@
+/* ═══════════════════════════════════════════════
+   PROJECT MANAGER DASHBOARD — Dark Starfield CSS
+   v2: Full width (no side space) + visible stars
+═══════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0f1a;
+  --card-bg: rgba(13, 20, 35, 0.85);
+  --card-border: rgba(0, 220, 180, 0.15);
+  --card-hover-border: rgba(0, 220, 180, 0.6);
+  --teal: #00dcb4;
+  --teal-dim: rgba(0, 220, 180, 0.1);
+  --teal-glow: rgba(0, 220, 180, 0.3);
+  --text: #e0f0ff;
+  --text-muted: #6b8aad;
+}
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+
+
+#stars-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
+  height: 150px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0,220,180,0.12);
+  width: 100%;
+}
+.hero-image { position: absolute; inset: 0; }
+.hero-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.18;
+  filter: hue-rotate(160deg) saturate(1.4);
+}
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(10,15,26,0.95) 30%, transparent 100%);
+}
+.hero-scanline {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--teal), transparent);
+  z-index: 3;
+  animation: scanPulse 3s ease-in-out infinite;
+}
+@keyframes scanPulse {
+  0%,100%{opacity:.4} 50%{opacity:1}
+}
+.hero-text {
+  position: relative;
+  z-index: 2;
+  padding: 0 2rem;
+}
+.hero-text h1 {
+  font-family: 'Orbitron', monospace;
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #fff;
+  text-shadow: 0 0 40px var(--teal-glow);
+}
+.hero-text p {
+  font-size: 1.1rem;
+  color: var(--teal);
+  margin-top: 6px;
+  letter-spacing: 1.5px;
+  opacity: 0.85;
+}
+
+/* FULL WIDTH — no max-width */
+.page {
+  position: relative;
+  z-index: 1;
+  padding: 2rem 1.2rem;
+  width: 100%;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 1.5rem;
+}
+.section-head h2 {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--teal);
+  text-transform: uppercase;
+}
+.section-badge {
+  background: var(--teal-dim);
+  border: 1px solid var(--card-border);
+  color: var(--teal);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(12px);
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  position: relative;
+  animation: fadeUp 0.5s ease both;
+}
+.card::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(0,220,180,0.04) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.card:hover {
+  border-color: var(--card-hover-border);
+  transform: translateY(-6px)scale(1.02);
+  box-shadow: 0 8px 40px rgba(0,220,180,0.15), 0 0 0 1px rgba(0,220,180,0.08);
+}
+.card:hover::before { opacity: 1; }
+
+.grid .card:nth-child(1){animation-delay:.05s}
+.grid .card:nth-child(2){animation-delay:.12s}
+.grid .card:nth-child(3){animation-delay:.19s}
+.grid .card:nth-child(4){animation-delay:.26s}
+.grid .card:nth-child(5){animation-delay:.33s}
+.grid .card:nth-child(6){animation-delay:.40s}
+.center-card .card{animation-delay:.47s}
+
+@keyframes fadeUp {
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.card-img {
+  height: 130px;
+  overflow: hidden;
+  position: relative;
+  background: rgba(0,220,180,0.03);
+}
+.card-img img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  padding: 14px;
+  transition: transform 0.4s;
+  filter: drop-shadow(0 4px 12px rgba(0,220,180,0.15));
+}
+.card:hover .card-img img { transform: scale(1.06); }
+.card-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(10,15,26,0.7));
+}
+
+.card-body {
+  padding: 12px 14px 4px;
+  flex: 1;
+}
+.card-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.card-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px 12px;
+  border-top: 1px solid rgba(0,220,180,0.06);
+  margin-top: 8px;
+}
+.card-link {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--teal);
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: color 0.2s;
+}
+.card-link:hover { color: #fff; }
+
+.card-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.tag-blue   { background:rgba(30,120,255,.2);   color:#5ca6ff; border:1px solid rgba(92,166,255,.25); }
+.tag-green  { background:rgba(0,200,100,.2);    color:#00c864; border:1px solid rgba(0,200,100,.25); }
+.tag-purple { background:rgba(140,60,255,.2);   color:#b47eff; border:1px solid rgba(140,60,255,.25); }
+.tag-orange { background:rgba(255,140,30,.2);   color:#ff9a30; border:1px solid rgba(255,140,30,.25); }
+.tag-red    { background:rgba(255,60,80,.2);    color:#ff4060; border:1px solid rgba(255,60,80,.25); }
+
+.center-card {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.center-card .card {
+  width: calc(33.333% - 0.34rem);
+}
+
+
+/* ════════════════════════════════════════════
+   DJANGO HTML MEIN YEH 2 CHEEZEIN ADD KARO:
+
+   1) <body> ke turant baad:
+      <canvas id="stars-canvas"></canvas>
+
+   2) </body> se pehle yeh script paste karo:
+   (neeche diya hua hai)
+════════════════════════════════════════════
+
+<script>
+const canvas=document.getElementById('stars-canvas');
+const ctx=canvas.getContext('2d');
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+const stars=Array.from({length:220},()=>({
+  x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,
+  r:Math.random()*1.8+0.2,opacity:Math.random()*0.7+0.15,
+  twinkleSpeed:Math.random()*0.018+0.004,twinkleDir:Math.random()>0.5?1:-1,
+  color:Math.random()>0.82?'#00dcb4':(Math.random()>0.6?'#7ec8ff':'#ffffff')
+}));
+const orbs=Array.from({length:14},()=>({
+  x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,
+  r:Math.random()*3+1.5,opacity:Math.random()*0.45+0.1,
+  dx:(Math.random()-0.5)*0.25,dy:(Math.random()-0.5)*0.25
+}));
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(const s of stars){
+    s.opacity+=s.twinkleSpeed*s.twinkleDir;
+    if(s.opacity>=0.9||s.opacity<=0.08)s.twinkleDir*=-1;
+    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=s.color;ctx.globalAlpha=s.opacity;ctx.fill();
+  }
+  for(const g of orbs){
+    g.x+=g.dx;g.y+=g.dy;
+    if(g.x<-50)g.x=canvas.width+50;if(g.x>canvas.width+50)g.x=-50;
+    if(g.y<-50)g.y=canvas.height+50;if(g.y>canvas.height+50)g.y=-50;
+    const grad=ctx.createRadialGradient(g.x,g.y,0,g.x,g.y,g.r*8);
+    grad.addColorStop(0,'rgba(0,220,180,0.7)');
+    grad.addColorStop(0.4,'rgba(0,220,180,0.15)');
+    grad.addColorStop(1,'rgba(0,220,180,0)');
+    ctx.beginPath();ctx.arc(g.x,g.y,g.r*8,0,Math.PI*2);
+    ctx.fillStyle=grad;ctx.globalAlpha=g.opacity;ctx.fill();
+  }
+  ctx.globalAlpha=1;requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+</script>
+*/

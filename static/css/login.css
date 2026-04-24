@@ -1,0 +1,437 @@
+/* ================================================
+   LOGIN PAGE — login.css
+   Project: Project Manager | Theme: Dark Teal
+   ================================================ */
+
+/* ---------- Google Font ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* ---------- Reset ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- Body ---------- */
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: #0d1b2a;
+  min-height: 100vh;
+}
+
+/* ================================================
+   LAYOUT — Split Left / Right
+   ================================================ */
+
+.wrap {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: #0d1b2a;
+}
+
+/* ================================================
+   LEFT PANEL — Login Form
+   ================================================ */
+
+.left {
+  width: 420px;
+  min-width: 370px;
+  background: #0d1321;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2.8rem;
+  position: relative;
+  z-index: 2;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ---------- Brand ---------- */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 3rem;
+}
+
+.brand-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #38b2ac;
+  flex-shrink: 0;
+}
+
+.brand-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #e2e8f0;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.brand-sub {
+  font-size: 11px;
+  color: #475569;
+  margin-top: 1px;
+}
+
+/* ---------- Page Heading ---------- */
+.wtitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-bottom: 5px;
+}
+
+.wsub {
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 2.2rem;
+}
+
+/* ---------- Form ---------- */
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Form Groups ---------- */
+.fg {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+/* ---------- Labels ---------- */
+.fg label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #94a3b8;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ---------- Inputs ---------- */
+.fg input,
+.fg input[type="email"],
+.fg input[type="password"],
+.fg input[type="text"] {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #e2e8f0;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.fg input::placeholder {
+  color: #4a5568;
+}
+
+.fg input:focus {
+  border-color: #38b2ac;
+  box-shadow: 0 0 0 3px rgba(56, 178, 172, 0.15);
+}
+
+/* ---------- Error Messages ---------- */
+.errorlist {
+  list-style: none;
+  font-size: 11px;
+  color: #fc8181;
+  margin-top: 4px;
+}
+
+.errorlist.non-field {
+  background: rgba(252, 129, 129, 0.08);
+  border: 1px solid rgba(252, 129, 129, 0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+}
+
+/* ---------- Forgot Password ---------- */
+.forgot-row {
+  text-align: right;
+  margin-bottom: 22px;
+}
+
+.forgot-row a {
+  font-size: 12px;
+  color: #38b2ac;
+  text-decoration: none;
+}
+
+.forgot-row a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Login Button ---------- */
+.btn-login {
+  width: 100%;
+  background: #38b2ac;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  letter-spacing: 0.03em;
+}
+
+.btn-login:hover {
+  background: #2c9a94;
+  transform: translateY(-1px);
+}
+
+.btn-login:active {
+  transform: scale(0.98);
+}
+
+/* ---------- Divider ---------- */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 1.4rem 0;
+  color: #374151;
+  font-size: 11px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ---------- Register Hint ---------- */
+.reg-hint {
+  text-align: center;
+  font-size: 12px;
+  color: #475569;
+}
+
+.reg-hint a {
+  color: #38b2ac;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.reg-hint a:hover {
+  text-decoration: underline;
+}
+
+/* ================================================
+   RIGHT PANEL — Animated Showcase
+   ================================================ */
+
+.right {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #080f1a;
+}
+
+/* Particle Canvas */
+canvas#bgc {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Right Content Wrapper */
+.right-body {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  max-width: 460px;
+}
+
+/* ---------- Floating Dashboard Card ---------- */
+.dash-card {
+  background: rgba(13, 25, 48, 0.85);
+  border: 1px solid rgba(56, 178, 172, 0.2);
+  border-radius: 16px;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: flt 4s ease-in-out infinite;
+}
+
+@keyframes flt {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+
+/* Traffic lights */
+.dc-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 1.1rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dot.g { background: #22c55e; }
+.dot.y { background: #f59e0b; }
+.dot.r { background: #ef4444; }
+
+/* Bar Chart */
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 7px;
+  height: 58px;
+}
+
+.bar {
+  width: 18px;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(to top, #0f766e, #38b2ac);
+  animation: ba 2s ease-in-out infinite alternate;
+}
+
+@keyframes ba {
+  from { opacity: 0.4; }
+  to   { opacity: 1;   }
+}
+
+.bar:nth-child(1) { height: 28px; animation-delay: 0s;    }
+.bar:nth-child(2) { height: 48px; animation-delay: 0.12s; }
+.bar:nth-child(3) { height: 38px; animation-delay: 0.24s; }
+.bar:nth-child(4) { height: 56px; animation-delay: 0.36s; }
+.bar:nth-child(5) { height: 32px; animation-delay: 0.48s; }
+.bar:nth-child(6) { height: 58px; animation-delay: 0.60s; }
+.bar:nth-child(7) { height: 42px; animation-delay: 0.72s; }
+.bar:nth-child(8) { height: 36px; animation-delay: 0.84s; }
+
+/* ---------- Badge ---------- */
+.badge {
+  display: inline-block;
+  border: 1px solid rgba(56, 178, 172, 0.35);
+  border-radius: 20px;
+  padding: 5px 18px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #5eead4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.1rem;
+}
+
+/* ---------- Right Title ---------- */
+.rtitle {
+  font-size: 26px;
+  font-weight: 700;
+  color: #f1f5f9;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.rtitle span {
+  color: #38b2ac;
+}
+
+/* ---------- Right Subtitle ---------- */
+.rsub {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.7;
+  margin-bottom: 1.8rem;
+}
+
+/* ---------- Stats Row ---------- */
+.stats {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.sbox {
+  background: rgba(13, 25, 48, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 14px 20px;
+  text-align: center;
+  min-width: 90px;
+}
+
+.snum {
+  font-size: 20px;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.slbl {
+  font-size: 10px;
+  color: #64748b;
+  margin-top: 3px;
+}
+
+/* ================================================
+   RESPONSIVE
+   ================================================ */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .wrap {
+    flex-direction: column;
+  }
+
+  .left {
+    width: 100%;
+    min-width: unset;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2.5rem 2rem;
+    justify-content: flex-start;
+  }
+
+  .right {
+    min-height: 400px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .left {
+    padding: 2rem 1.25rem;
+  }
+
+  .wtitle {
+    font-size: 20px;
+  }
+
+  .stats {
+    flex-wrap: wrap;
+  }
+
+  .rtitle {
+    font-size: 20px;
+  }
+}

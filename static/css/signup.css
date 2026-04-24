@@ -1,0 +1,348 @@
+/* ============================================
+   SIGNUP.CSS — mirrors login form architecture
+   ============================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: #0a0f1e;
+  color: #e0e6f0;
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+}
+
+/* ── PAGE WRAPPER ── */
+.page-wrapper {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ── LEFT PANEL (form side) ── */
+.left-panel {
+  width: 360px;
+  min-width: 320px;
+  background-color: #0d1220;
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Logo / brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.brand-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #2dd4bf;
+}
+
+.brand-name {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.brand-sub {
+  font-size: 11px;
+  color: #4a5568;
+  letter-spacing: 0.05em;
+  margin-left: 18px;
+  margin-top: -14px;
+}
+
+/* Heading */
+.form-heading {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.form-subheading {
+  font-size: 13px;
+  color: #6b7a99;
+  margin-bottom: 32px;
+}
+
+/* Form */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6b7a99;
+  margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 11px 14px;
+  background: #ffffff;
+  border: 1.5px solid transparent;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1a202c;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: 'Outfit', sans-serif;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #2dd4bf;
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.15);
+}
+
+.form-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236b7a99' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  cursor: pointer;
+}
+
+/* Errors */
+.errorlist {
+  list-style: none;
+  margin-top: 5px;
+}
+
+.errorlist li {
+  font-size: 12px;
+  color: #fc8181;
+}
+
+.error-box {
+  background: rgba(252, 129, 129, 0.08);
+  border: 1px solid rgba(252, 129, 129, 0.25);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: #fc8181;
+}
+
+/* Submit button */
+.btn-submit {
+  width: 100%;
+  padding: 13px;
+  background: #2dd4bf;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0a0f1e;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  font-family: 'Outfit', sans-serif;
+  margin-top: 4px;
+}
+
+.btn-submit:hover {
+  background: #38e4cf;
+}
+
+.btn-submit:active {
+  transform: scale(0.98);
+}
+
+/* Already have account link */
+.login-link {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 13px;
+  color: #6b7a99;
+}
+
+.login-link a {
+  color: #2dd4bf;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* ── RIGHT PANEL (decorative side) ── */
+.right-panel {
+  flex: 1;
+  position: relative;
+  background-color: #080d1a;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Starfield canvas */
+.stars-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Right panel content */
+.right-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 420px;
+  padding: 2rem;
+}
+
+.right-badge {
+  display: inline-block;
+  border: 1px solid #2dd4bf;
+  color: #2dd4bf;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 16px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.right-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.right-title span {
+  color: #2dd4bf;
+}
+
+.right-subtitle {
+  font-size: 14px;
+  color: #6b7a99;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+/* Mock chart card */
+.mock-card {
+  background: rgba(13, 18, 32, 0.85);
+  border: 1px solid rgba(45, 212, 191, 0.15);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 100px;
+}
+
+.mock-card .dot-row {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 14px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.mock-card-wrap {
+  position: relative;
+  background: rgba(13, 18, 32, 0.85);
+  border: 1px solid rgba(45, 212, 191, 0.15);
+  border-radius: 14px;
+  padding: 20px 20px 16px;
+  margin-bottom: 24px;
+}
+
+.window-dots {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.wd { width: 10px; height: 10px; border-radius: 50%; }
+.wd-red    { background: #ff5f57; }
+.wd-yellow { background: #febc2e; }
+.wd-green  { background: #28c840; }
+
+.bar-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 60px;
+}
+
+.bar {
+  flex: 1;
+  background: #2dd4bf;
+  border-radius: 3px 3px 0 0;
+  opacity: 0.7;
+}
+
+/* Stats row */
+.stats-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.stat-card {
+  background: rgba(13, 18, 32, 0.85);
+  border: 1px solid rgba(45, 212, 191, 0.1);
+  border-radius: 10px;
+  padding: 14px 20px;
+  text-align: center;
+  min-width: 90px;
+}
+
+.stat-num {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #6b7a99;
+  margin-top: 2px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .right-panel { display: none; }
+  .left-panel  { width: 100%; padding: 40px 24px; }
+}

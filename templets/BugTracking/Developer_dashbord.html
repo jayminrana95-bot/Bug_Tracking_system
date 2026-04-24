@@ -1,0 +1,206 @@
+{% extends 'base2.html' %}
+{% block text %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/developer_dashbord.css' %}">
+</head>
+<body>
+
+<canvas id="stars-canvas"></canvas>
+
+<div class="container">
+
+    <!-- Banner / Hero -->
+    <div class="hero">
+        <div class="hero-scanline"></div>
+        <div class="hero-text">
+            <h1>Developer Dashboard</h1>
+            <p>{{ request.user }} — Manage your tasks and bugs</p>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="page">
+
+        <!-- Section Header -->
+        <div class="section-head">
+            <h2>Quick Access</h2>
+            <span class="section-badge">8 modules</span>
+        </div>
+
+        <!-- Grid Cards -->
+        <div class="grid">
+
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://img.freepik.com/free-vector/teamwork-concept-illustration_114360-1816.jpg">
+                    <div class="card-img-overlay"></div>
+                </div>
+                <div class="card-body">
+                    <a class="card-title" href="{% url 'user__role' %}">User Role</a>
+                    <p class="card-desc">Manage users and permissions</p>
+                </div>
+                <div class="card-footer">
+                    <a class="card-link" href="{% url 'user__role' %}">Open →</a>
+                    <span class="card-tag tag-blue">USERS</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1380/1380338.png">
+                    <div class="card-img-overlay"></div>
+                </div>
+                <div class="card-body">
+                    <a class="card-title" href="{% url 'project_list' %}">Project List</a>
+                    <p class="card-desc">Create and track projects</p>
+                </div>
+                <div class="card-footer">
+                    <a class="card-link" href="{% url 'project_list' %}">Open →</a>
+                    <span class="card-tag tag-green">PROJECTS</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1380/1380338.png">
+                    <div class="card-img-overlay"></div>
+                </div>
+                <div class="card-body">
+                    <a class="card-title" href="{% url 'Moduel_list' %}">Module List</a>
+                    <p class="card-desc">Organize project modules</p>
+                </div>
+                <div class="card-footer">
+                    <a class="card-link" href="{% url 'Moduel_list' %}">Open →</a>
+                    <span class="card-tag tag-purple">MODULES</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1380/1380338.png">
+                    <div class="card-img-overlay"></div>
+                </div>
+                <div class="card-body">
+                    <a class="card-title" href="{% url 'Task_list' %}">Task List</a>
+                    <p class="card-desc">Add and assign new tasks</p>
+                </div>
+                <div class="card-footer">
+                    <a class="card-link" href="{% url 'Task_list' %}">Open →</a>
+                    <span class="card-tag tag-orange">TASKS</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png">
+                    <div class="card-img-overlay"></div>
+                </div>
+                <div class="card-body">
+                    <a class="card-title" href="{% url 'assigned_list' %}">Assigned Page</a>
+                    <p class="card-desc">View task assignments</p>
+                </div>
+                <div class="card-footer">
+                    <a class="card-link" href="{% url 'assigned_list' %}">Open →</a>
+                    <span class="card-tag tag-cyan">ASSIGN</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://cdn-icons-png.flaticon.com/512/906/906334.png">
+                    <div class="card-img-overlay"></div>
+                </div>
+                <div class="card-body">
+                    <a class="card-title" href="{% url 'assigned_bug1_list' %}">Assigned Bugs</a>
+                    <p class="card-desc">Report and track bugs</p>
+                </div>
+                <div class="card-footer">
+                    <a class="card-link" href="{% url 'assigned_bug1_list' %}">Open →</a>
+                    <span class="card-tag tag-red">BUGS</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png">
+                    <div class="card-img-overlay"></div>
+                </div>
+                <div class="card-body">
+                    <a class="card-title" href="{% url 'assigned_by_tester' %}">Bug Fixes</a>
+                    <p class="card-desc">Fix reported bugs</p>
+                </div>
+                <div class="card-footer">
+                    <a class="card-link" href="{% url 'assigned_by_tester' %}">Open →</a>
+                    <span class="card-tag tag-pink">FIXES</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1380/1380338.png">
+                    <div class="card-img-overlay"></div>
+                </div>
+                <div class="card-body">
+                    <a class="card-title" href="{% url 'comment_list' %}">Comments</a>
+                    <p class="card-desc">View and add comments</p>
+                </div>
+                <div class="card-footer">
+                    <a class="card-link" href="{% url 'comment_list' %}">Open →</a>
+                    <span class="card-tag tag-teal">COMMENTS</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Stars Animation Script -->
+<script>
+const canvas=document.getElementById('stars-canvas');
+const ctx=canvas.getContext('2d');
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();window.addEventListener('resize',resize);
+const stars=Array.from({length:220},()=>({
+  x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,
+  r:Math.random()*1.8+0.2,opacity:Math.random()*0.7+0.15,
+  twinkleSpeed:Math.random()*0.018+0.004,twinkleDir:Math.random()>0.5?1:-1,
+  color:Math.random()>0.82?'#00dcb4':(Math.random()>0.6?'#7ec8ff':'#ffffff')
+}));
+const orbs=Array.from({length:14},()=>({
+  x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,
+  r:Math.random()*3+1.5,opacity:Math.random()*0.45+0.1,
+  dx:(Math.random()-0.5)*0.25,dy:(Math.random()-0.5)*0.25
+}));
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(const s of stars){
+    s.opacity+=s.twinkleSpeed*s.twinkleDir;
+    if(s.opacity>=0.9||s.opacity<=0.08)s.twinkleDir*=-1;
+    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=s.color;ctx.globalAlpha=s.opacity;ctx.fill();
+  }
+  for(const g of orbs){
+    g.x+=g.dx;g.y+=g.dy;
+    if(g.x<-50)g.x=canvas.width+50;if(g.x>canvas.width+50)g.x=-50;
+    if(g.y<-50)g.y=canvas.height+50;if(g.y>canvas.height+50)g.y=-50;
+    const grad=ctx.createRadialGradient(g.x,g.y,0,g.x,g.y,g.r*8);
+    grad.addColorStop(0,'rgba(0,220,180,0.7)');
+    grad.addColorStop(0.4,'rgba(0,220,180,0.15)');
+    grad.addColorStop(1,'rgba(0,220,180,0)');
+    ctx.beginPath();ctx.arc(g.x,g.y,g.r*8,0,Math.PI*2);
+    ctx.fillStyle=grad;ctx.globalAlpha=g.opacity;ctx.fill();
+  }
+  ctx.globalAlpha=1;requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+</script>
+
+</body>
+</html>
+{% endblock %}

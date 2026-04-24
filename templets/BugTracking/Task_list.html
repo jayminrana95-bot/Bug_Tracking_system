@@ -1,0 +1,534 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management - Bug Tracking System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-dark: #0a0f1a;
+            --bg-panel: #111827;
+            --bg-card: #131f2e;
+            --bg-card2: #0f1c2a;
+            --accent: #00c9a7;
+            --accent-dim: rgba(0,201,167,0.12);
+            --accent-border: rgba(0,201,167,0.22);
+            --text-primary: #e8f0f8;
+            --text-muted: #4a6a8a;
+            --text-dim: #2e4a66;
+            --border: rgba(0,201,167,0.1);
+            --red: #e05252;
+            --red-dim: rgba(224,82,82,0.15);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-dark);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        #stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 40px 36px 80px;
+        }
+
+        /* ── HEADER ── */
+        .top-bar {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 36px;
+        }
+
+        .logo-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .logo-dot {
+            width: 9px; height: 9px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%,100% { opacity:1; } 50% { opacity:0.35; }
+        }
+
+        .logo-line span {
+            font-family: 'Syne', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .page-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 58px;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--text-primary);
+        }
+
+        .page-title span { color: var(--accent); }
+
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--accent-dim);
+            border: 1px solid var(--accent-border);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-family: 'Syne', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+
+        .live-badge-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        /* ── STAT CARDS ── */
+        .stat-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 26px 28px;
+        }
+
+        .stat-card .s-label {
+            font-family: 'Syne', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .stat-card .s-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-card .s-value.normal {
+            font-size: 22px;
+            color: var(--text-primary);
+        }
+
+        /* ── TABLE SECTION ── */
+        .table-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 26px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .table-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .entries-badge {
+            background: var(--accent);
+            color: #0a0f1a;
+            font-family: 'Syne', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 20px;
+            padding: 4px 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            border-bottom: 1px solid var(--border);
+        }
+
+        thead th {
+            font-family: 'Syne', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            padding: 14px 18px;
+            text-align: left;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid rgba(0,201,167,0.05);
+            transition: background 0.2s;
+        }
+
+        tbody tr:last-child { border-bottom: none; }
+        tbody tr:hover { background: rgba(0,201,167,0.04); }
+
+        tbody td {
+            padding: 16px 18px;
+            font-size: 13px;
+            color: var(--text-primary);
+            vertical-align: middle;
+        }
+
+        /* ID badge */
+        .id-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            min-width: 48px;
+        }
+
+        /* Description */
+        .desc-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            max-width: 220px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Date */
+        .date-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Status badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent-dim);
+            border: 1px solid var(--accent-border);
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-family: 'Syne', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .status-badge.inactive {
+            background: rgba(255,180,0,0.1);
+            border-color: rgba(255,180,0,0.25);
+            color: #ffb400;
+        }
+
+        .status-badge.inactive::before {
+            background: #ffb400;
+            animation: none;
+        }
+
+        .status-badge.closed {
+            background: rgba(224,82,82,0.1);
+            border-color: rgba(224,82,82,0.25);
+            color: var(--red);
+        }
+
+        .status-badge.closed::before {
+            background: var(--red);
+            animation: none;
+        }
+
+        /* Actions */
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-edit {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--bg-card2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 7px 14px;
+            font-family: 'Syne', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            letter-spacing: 0.04em;
+        }
+
+        .btn-edit:hover {
+            border-color: var(--accent);
+            background: var(--accent-dim);
+            color: var(--accent);
+        }
+
+        .btn-edit svg { width:12px; height:12px; fill:currentColor; }
+
+        .btn-delete {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--red-dim);
+            border: 1px solid rgba(224,82,82,0.3);
+            border-radius: 6px;
+            padding: 7px 14px;
+            font-family: 'Syne', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--red);
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            letter-spacing: 0.04em;
+        }
+
+        .btn-delete:hover {
+            background: rgba(224,82,82,0.25);
+            border-color: var(--red);
+        }
+
+        .btn-delete svg { width:12px; height:12px; fill:currentColor; }
+
+        /* ── BOTTOM NAV ── */
+        .bottom-nav {
+            margin-top: 28px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-family: 'Syne', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 0.06em;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .nav-link:hover {
+            background: var(--accent-dim);
+            border-color: var(--accent-border);
+        }
+
+        .del-form { display: inline; }
+    </style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<div class="page">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div>
+            <div class="logo-line">
+                <div class="logo-dot"></div>
+                <span>Bug Tracking System</span>
+            </div>
+            <h1 class="page-title">Task <span>Management</span></h1>
+        </div>
+        <div class="live-badge">
+            <div class="live-badge-dot"></div>
+            All Systems Live
+        </div>
+    </div>
+
+    <!-- STAT CARDS -->
+    <div class="stat-row">
+        <div class="stat-card">
+            <div class="s-label">Total Tasks</div>
+            <div class="s-value">{{ Task_list|length }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="s-label">Role</div>
+            <div class="s-value normal">Project Manager</div>
+        </div>
+        <div class="stat-card">
+            <div class="s-label">System</div>
+            <div class="s-value normal">© 2026</div>
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-section">
+        <div class="table-header">
+            <div class="table-title">Registered Tasks</div>
+            <div class="entries-badge">{{ Task_list|length }} entries</div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Task ID</th>
+                    <th>Module ID</th>
+                    <th>Task Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emp in Task_list %}
+                <tr>
+                    <td><span class="id-badge">{{ emp.task_id }}</span></td>
+                    <td><span class="id-badge">{{ emp.module_id }}</span></td>
+                    <td><span class="desc-text" title="{{ emp.task_description }}">{{ emp.task_description }}</span></td>
+                    <td><span class="date-text">{{ emp.start_date }}</span></td>
+                    <td><span class="date-text">{{ emp.end_date }}</span></td>
+                    <td>
+                        <span class="status-badge {% if emp.status == 'Inactive' %}inactive{% elif emp.status == 'Closed' %}closed{% endif %}">
+                            {{ emp.status }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <a href="{% url 'Update_task' emp.task_id %}" class="btn-edit">
+                                <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm17.71-10.21a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                                Edit
+                            </a>
+                            <form method="POST" action="{% url 'delete_task' emp.task_id %}" class="del-form">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-delete">
+                                    <svg viewBox="0 0 24 24"><path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <div class="bottom-nav">
+        <a href="{% url 'Project_Manager' %}" class="nav-link">
+            🏠 Project_Manager
+        </a>
+        <a href="{% url 'Developer_dashbord' %}" class="nav-link">🏠 Developer_dashbord</a>
+    <a href="{% url 'Tester_dashbord' %}" class="nav-link">🏠 Tester_dashbord</a>
+    </div>
+
+</div>
+
+<script>
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const stars = Array.from({ length: 130 }, () => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: Math.random() * 1.6 + 0.2,
+        a: Math.random(),
+        speed: Math.random() * 0.004 + 0.002
+    }));
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+            s.a += s.speed;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(0,201,167,${0.25 + 0.45 * Math.abs(Math.sin(s.a))})`;
+            ctx.fill();
+        });
+        requestAnimationFrame(draw);
+    }
+    draw();
+</script>
+</body>
+</html>
+{% endblock %}

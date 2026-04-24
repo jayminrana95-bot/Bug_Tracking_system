@@ -1,0 +1,235 @@
+/* ================================================
+   USER ROLE FORM — user.css
+   Theme: Dark Teal (matching Login Page)
+   ================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0d1b2a;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ================================================
+   PARTICLE CANVAS — fullscreen background
+   ================================================ */
+#particles-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ================================================
+   HEADING
+   ================================================ */
+h1 {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(0, 220, 180, 0.5),
+               0 0 20px rgba(0, 220, 180, 0.3);
+}
+
+/* ================================================
+   FORM CONTAINER
+   ================================================ */
+.form-container {
+  background: transparent;  /* canvas dikhne ke liye */
+  padding: 80px 60px 60px;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1; /* above canvas */
+}
+
+/* Top gradient bar — same as login page */
+.form-container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(56, 178, 172, 0.8) 30%,
+    rgba(56, 178, 172, 1) 50%,
+    rgba(56, 178, 172, 0.8) 70%,
+    transparent 100%
+  );
+}
+
+/* ================================================
+   FORM GROUPS
+   ================================================ */
+.form-group {
+  width: 100%;
+  margin-bottom: 20px;
+  animation: fadeIn 0.4s ease both;
+}
+
+.form-group:first-of-type {
+  margin-top: 20px;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.08s; }
+.form-group:nth-child(2) { animation-delay: 0.16s; }
+.form-group:nth-child(3) { animation-delay: 0.24s; }
+.form-group:nth-child(4) { animation-delay: 0.32s; }
+.form-group:nth-child(5) { animation-delay: 0.40s; }
+.form-group:nth-child(6) { animation-delay: 0.48s; }
+
+/* ================================================
+   LABELS
+   ================================================ */
+.form-group label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 7px;
+}
+
+/* ================================================
+   INPUTS, SELECT, TEXTAREA
+   ================================================ */
+.form-container input,
+.form-container select,
+.form-container textarea {
+  width: 100%;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.form-container input::placeholder,
+.form-container textarea::placeholder {
+  color: #4a5568;
+  font-weight: 400;
+}
+
+/* Focus state — teal glow like login */
+.form-container input:focus,
+.form-container select:focus,
+.form-container textarea:focus {
+  border-color: #38b2ac;
+  background: rgba(56, 178, 172, 0.06);
+  box-shadow: 0 0 0 3px rgba(56, 178, 172, 0.15);
+}
+
+/* Select dropdown arrow — teal toned */
+.form-container select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2338b2ac' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-color: rgba(255, 255, 255, 0.06);
+  padding-right: 36px;
+  cursor: pointer;
+  color: #64748b;
+}
+
+.form-container select option {
+  background: #0d1321;
+  color: #e2e8f0;
+}
+
+/* Date input */
+.form-container input[type="date"] {
+  color-scheme: dark;
+}
+
+/* ================================================
+   ERROR MESSAGES
+   ================================================ */
+.form-group ul {
+  list-style: none;
+  padding: 0;
+  font-size: 11px;
+  color: #fc8181;
+  margin-top: 5px;
+  min-height: 18px;
+  padding-left: 2px;
+}
+
+/* ================================================
+   SUBMIT BUTTON — teal like login button
+   ================================================ */
+.btn-submit {
+  margin-top: 8px;
+  width: 100%;
+  padding: 12px 20px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  background: #38b2ac;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 16px rgba(56, 178, 172, 0.25);
+}
+
+.btn-submit:hover {
+  background: #2c9a94;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(56, 178, 172, 0.35);
+}
+
+.btn-submit:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(56, 178, 172, 0.2);
+}
+
+/* ================================================
+   ANIMATION
+   ================================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================================
+   RESPONSIVE
+   ================================================ */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 70px 24px 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 70px 16px 32px;
+  }
+}

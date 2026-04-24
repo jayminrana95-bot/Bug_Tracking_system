@@ -1,0 +1,216 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Project Manager</title>
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+
+  <div class="wrap">
+
+    <!-- ===== LEFT: LOGIN FORM ===== -->
+    <div class="left">
+
+      <!-- Brand -->
+      <div class="brand">
+        <div class="brand-dot"></div>
+        <div>
+          <div class="brand-name">Bug Tracking System</div>
+          <div class="brand-sub">Management System</div>
+        </div>
+      </div>
+
+      <!-- Heading -->
+      <h1 class="wtitle">Welcome back</h1>
+      <p class="wsub">Sign in to your account to continue</p>
+
+      <!-- Login Form -->
+      <form method="POST" class="login-form">
+        {% csrf_token %}
+
+        <!-- Email -->
+        <div class="fg">
+          <label for="{{ form.email.id_for_label }}">Email Address</label>
+          {{ form.email }}
+          {% if form.email.errors %}
+            <ul class="errorlist">
+              {% for error in form.email.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
+        <!-- Password -->
+        <div class="fg">
+          <label for="{{ form.password.id_for_label }}">Password</label>
+          {{ form.password }}
+          {% if form.password.errors %}
+            <ul class="errorlist">
+              {% for error in form.password.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
+        <!-- Non-field errors -->
+        {% if form.non_field_errors %}
+          <ul class="errorlist non-field">
+            {% for error in form.non_field_errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <!-- Forgot Password -->
+        <div class="forgot-row">
+          <a href="{% url 'password_reset' %}">Forgot password?</a>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn-login">Login</button>
+
+      </form>
+
+      <!-- Register Link -->
+      <div class="divider">don't have an account?</div>
+      <p class="reg-hint">New here? <a href="{% url 'signup' %}">Create an account</a></p>
+
+    </div>
+    <!-- ===== END LEFT ===== -->
+
+
+    <!-- ===== RIGHT: ANIMATED PANEL ===== -->
+    <div class="right">
+
+      <!-- Particle Canvas -->
+      <canvas id="bgc"></canvas>
+
+      <!-- Content -->
+      <div class="right-body">
+
+        <!-- Floating Dashboard Card -->
+        <div class="dash-card">
+          <div class="dc-top">
+            <div class="dot g"></div>
+            <div class="dot y"></div>
+            <div class="dot r"></div>
+          </div>
+          <div class="bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </div>
+
+        <!-- Badge -->
+        <div class="badge">Welcome Back</div>
+
+        <!-- Title -->
+        <div class="rtitle">
+          Everything you need,<br>
+          <span>right here</span>
+        </div>
+
+        <!-- Subtitle -->
+        <p class="rsub">
+          Pick up right where you left off. Your projects, tasks,
+          and team are all waiting for you.
+        </p>
+
+        <!-- Stats -->
+        <div class="stats">
+          <div class="sbox">
+            <div class="snum">9</div>
+            <div class="slbl">Modules</div>
+          </div>
+          <div class="sbox">
+            <div class="snum">Live</div>
+            <div class="slbl">All systems</div>
+          </div>
+          <div class="sbox">
+            <div class="snum">2026</div>
+            <div class="slbl">© Bug Tracking System</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- ===== END RIGHT ===== -->
+
+  </div>
+
+  <!-- ===== PARTICLE ANIMATION SCRIPT ===== -->
+  <script>
+    const c = document.getElementById('bgc');
+    const cx = c.getContext('2d');
+    let W, H, pts = [];
+
+    function rsz() {
+      W = c.width  = c.parentElement.offsetWidth;
+      H = c.height = c.parentElement.offsetHeight;
+    }
+
+    function init() {
+      pts = [];
+      const n = Math.floor((W * H) / 9000);
+      for (let i = 0; i < n; i++) {
+        pts.push({
+          x  : Math.random() * W,
+          y  : Math.random() * H,
+          vx : (Math.random() - 0.5) * 0.35,
+          vy : (Math.random() - 0.5) * 0.35,
+          r  : Math.random() * 1.8 + 0.7
+        });
+      }
+    }
+
+    function draw() {
+      cx.clearRect(0, 0, W, H);
+      const md = 130;
+      for (let i = 0; i < pts.length; i++) {
+        const p = pts[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y < 0 || p.y > H) p.vy *= -1;
+
+        cx.beginPath();
+        cx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        cx.fillStyle = 'rgba(56,178,172,0.65)';
+        cx.fill();
+
+        for (let j = i + 1; j < pts.length; j++) {
+          const p2 = pts[j];
+          const dx = p.x - p2.x, dy = p.y - p2.y;
+          const d  = Math.sqrt(dx * dx + dy * dy);
+          if (d < md) {
+            cx.beginPath();
+            cx.moveTo(p.x, p.y);
+            cx.lineTo(p2.x, p2.y);
+            cx.strokeStyle = `rgba(56,178,172,${0.15 * (1 - d / md)})`;
+            cx.lineWidth   = 0.5;
+            cx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+
+    rsz();
+    init();
+    draw();
+    window.addEventListener('resize', () => { rsz(); init(); });
+  </script>
+
+</body>
+</html>

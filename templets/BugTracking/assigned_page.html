@@ -1,0 +1,57 @@
+ {% extends 'base.html' %}
+ {% block content %}
+
+
+ {% load static %}
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+</head>
+<body>
+  
+
+
+<form method="POST" class="form-container">
+    {% csrf_token %}
+    <h1>Assign Task</h1>
+    <div class="form-group">
+        <label>Task</label>
+        {{ form.task_id }}
+        {{ form.task_id.errors }}
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Assigned To</label>
+            {{ form.assigned_to }}
+            {{ form.assigned_to.errors }}
+        </div>
+
+        <div class="form-group">
+            <label>Assigned By</label>
+            {{ form.assigned_by }}
+            {{ form.assigned_by.errors }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Description</label>
+        {{ form.Description }}
+        {{ form.Description.errors }}
+    </div>
+
+    <div class="form-group">
+        <label>Assigned Date</label>
+        {{ form.assigned_date }}
+        {{ form.assigned_date.errors }}
+    </div>
+
+    <button type="submit" class="btn-submit">Assign Task</button>
+</form>
+</body>
+</html>
+{% endblock %}

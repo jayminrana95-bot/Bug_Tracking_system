@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Manager Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/project_manager.css' %}">
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+     HERO BANNER
+     Project_Manager.html mein
+     navbar ke NEECHE, .page div ke UPAR paste karo
+══════════════════════════════════════════ -->
+
+<!-- ══════════════════════════════════════════
+     SIMPLE HERO BANNER
+     Navbar ke neeche, .page div se pehle paste karo
+══════════════════════════════════════════ -->
+
+<div class="hero">
+
+  <!-- IMAGE -->
+  <div class="hero-image">
+    <img src="https://img.freepik.com/free-vector/abstract-blue-geometric-shapes-background_1035-17545.jpg" alt="Dashboard Banner"/>
+  </div>
+
+  <!-- TEXT -->
+  <div class="hero-text">
+    <h1>Project Manager Dashboard</h1>
+    <p>{{ request.user }} — Manage your project, task and bugs</p>
+  </div>
+
+</div>
+  <!-- ══════════════════════════════
+       PAGE CONTENT
+  ══════════════════════════════ -->
+  <div class="page">
+
+    <div class="section-head">
+      <h2>Quick Access</h2>
+      <span class="section-badge">7 modules</span>
+    </div>
+
+    <!-- GRID — Row 1 -->
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-img">
+          <img src="https://img.freepik.com/free-vector/business-team-working-together_74855-6308.jpg" alt="User Role"/>
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">User Role</div>
+          <div class="card-desc">Manage users and permissions</div>
+        </div>
+        <div class="card-footer">
+          <a href="{% url 'user__role' %}" class="card-link">Open →</a>
+          <span class="card-tag tag-blue">Users</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img">
+          <img src="https://img.freepik.com/free-vector/business-strategy-concept-illustration_114360-1233.jpg" alt="Project Created"/>
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Project Created</div>
+          <div class="card-desc">Create and track projects</div>
+        </div>
+        <div class="card-footer">
+          <a href="{% url 'project__created' %}" class="card-link">Open →</a>
+          <span class="card-tag tag-green">Projects</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img">
+          <img src="https://img.freepik.com/free-vector/programming-concept-illustration_114360-1670.jpg" alt="Module Created"/>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Module Created</div>
+          <div class="card-desc">Organize project modules</div>
+        </div>
+        <div class="card-footer">
+          <a href="{% url 'module__created' %}" class="card-link">Open →</a>
+          <span class="card-tag tag-purple">Modules</span>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="card">
+        <div class="card-img">
+          <img src="https://img.freepik.com/free-vector/completed-steps-concept-illustration_114360-5521.jpg" alt="Task Created"/>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Task Created</div>
+          <div class="card-desc">Add and assign new tasks</div>
+        </div>
+        <div class="card-footer">
+          <a href="{% url 'task__created' %}" class="card-link">Open →</a>
+          <span class="card-tag tag-orange">Tasks</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img">
+          <img src="https://img.freepik.com/free-vector/business-deal-concept-illustration_114360-1103.jpg" alt="Assigned Page"/>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Assigned Page</div>
+          <div class="card-desc">View task assignments</div>
+        </div>
+        <div class="card-footer">
+          <a href="{% url 'assigned_page' %}" class="card-link">Open →</a>
+          <span class="card-tag tag-blue">Assign</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img">
+          <img src="https://img.freepik.com/free-vector/bug-fixing-concept-illustration_114360-1526.jpg" alt="Bug Tracking"/>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Bug Tracking</div>
+          <div class="card-desc">Report and track bugs</div>
+        </div>
+        <div class="card-footer">
+          <a href="{% url 'Bug_Tracking_Page' %}" class="card-link">Open →</a>
+          <span class="card-tag tag-red">Bugs</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CENTER CARD -->
+    <div class="center-card">
+      <div class="card">
+        <div class="card-img">
+          <img src="https://img.freepik.com/free-vector/pair-programming-concept-illustration_114360-2170.jpg" alt="Assigned Bug Page"/>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Assigned Bug Page</div>
+          <div class="card-desc">Assign bugs to team members</div>
+        </div>
+        <div class="card-footer">
+          <a href="{% url 'assigned_bug_page' %}" class="card-link">Open →</a>
+          <span class="card-tag tag-red">Bugs</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  
+ 
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base2.html' %}
+{% block text %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+</head>
+<body>
+    
+
+
+<form method="POST" class="form-container">
+    {% csrf_token %}
+    <h1>Assign Fix Bug To Tester</h1>
+    <!-- Non field error (VERY IMPORTANT for your validation) -->
+    {% if form.non_field_errors %}
+        <div class="error-box">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Assigned To</label>
+            {{ form.assigned_to }}
+            {{ form.assigned_to.errors }}
+        </div>
+
+        <div class="form-group">
+            <label>Assigned By</label>
+            {{ form.assigned_by }}
+            {{ form.assigned_by.errors }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Description</label>
+        {{ form.Description }}
+        {{ form.Description.errors }}
+    </div>
+
+    <!-- IMPORTANT SECTION -->
+    <div class="form-row">
+        <div class="form-group">
+            <label>Task (Select ONE)</label>
+            {{ form.task }}
+            {{ form.task.errors }}
+        </div>
+
+        <div class="form-group">
+            <label>Bug (Select ONE)</label>
+            {{ form.bug }}
+            {{ form.bug.errors }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Status</label>
+            {{ form.status }}
+            {{ form.status.errors }}
+        </div>
+
+        <div class="form-group">
+            <label>Fix Date</label>
+            {{ form.fix_date }}
+            {{ form.fix_date.errors }}
+        </div>
+    </div>
+
+    <button type="submit" class="btn-submit">Assign</button>
+</form>
+</body>
+</html>
+{% endblock %}

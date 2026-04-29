@@ -15,7 +15,7 @@ def UserSignupView (request):
               subject='Welcome to bug tracking system',
               message= 'Thank you for singup to our bug tracking system We are glad to have you on borad',
               from_email=settings.EMAIL_HOST_USER,
-              recipient_list=['yajoj38946@hacknapp.com']
+              recipient_list=[email],
            )
            return redirect("login")
         else :
